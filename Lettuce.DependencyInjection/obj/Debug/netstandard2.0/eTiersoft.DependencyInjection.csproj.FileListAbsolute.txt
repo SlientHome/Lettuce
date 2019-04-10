@@ -1,0 +1,9 @@
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\obj\Debug\netstandard2.0\eTiersoft.DependencyInjection.csprojAssemblyReference.cache
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\obj\Debug\netstandard2.0\eTiersoft.DependencyInjection.csproj.CoreCompileInputs.cache
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\obj\Debug\netstandard2.0\eTiersoft.DependencyInjection.AssemblyInfoInputs.cache
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\obj\Debug\netstandard2.0\eTiersoft.DependencyInjection.AssemblyInfo.cs
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\bin\Debug\netstandard2.0\eTiersoft.DependencyInjection.deps.json
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\bin\Debug\netstandard2.0\eTiersoft.DependencyInjection.dll
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\bin\Debug\netstandard2.0\eTiersoft.DependencyInjection.pdb
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\obj\Debug\netstandard2.0\eTiersoft.DependencyInjection.dll
+D:\Projects\GitHubProjects\eTiersoft.DependencyInjection\obj\Debug\netstandard2.0\eTiersoft.DependencyInjection.pdb
