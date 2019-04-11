@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lettuce.DependencyInjection.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace Lettuce.DependencyInjection
         private object Create(Type abstracterType)
         {
             var ImplementerType = GetImplementerType(abstracterType);
-
+            if (ImplementerType == null)
+            {
+                return null;
+            }
             //构造函数注入
             //获取构造函数
             var ctorInfo = ImplementerType.GetConstructors().OrderByDescending(p => p.GetParameters().Count()).FirstOrDefault();
@@ -45,6 +49,16 @@ namespace Lettuce.DependencyInjection
             }
 
             //方法注入
+            var methodInfos = ImplementerType.GetMethods();
+            foreach (var methodInfo in methodInfos.Where(t=>t.CustomAttributes.FirstOrDefault(a => a.AttributeType == typeof(ImportAttribute) )!=null))
+            {
+                List<object> paramsList = new List<object>();
+                foreach (var param in methodInfo.GetParameters())
+                {
+                    paramsList.Add(Create(param.ParameterType));
+                }
+                methodInfo.Invoke(Implementer, paramsList.ToArray());
+            }
 
             return Implementer;
         }

@@ -12,3 +12,17 @@ D:\Projects\GitHubProjects\ConsoleApp1\bin\Debug\netcoreapp2.2\eTiersoft.Depende
 D:\Projects\GitHubProjects\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.csproj.CopyComplete
 D:\Projects\GitHubProjects\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.dll
 D:\Projects\GitHubProjects\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.pdb
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.csprojAssemblyReference.cache
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.csproj.CoreCompileInputs.cache
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.AssemblyInfoInputs.cache
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.AssemblyInfo.cs
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.dll
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.pdb
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\ConsoleApp1.deps.json
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\ConsoleApp1.runtimeconfig.json
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\ConsoleApp1.runtimeconfig.dev.json
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\ConsoleApp1.dll
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\ConsoleApp1.pdb
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\Lettuce.DependencyInjection.dll
+D:\project\ConsoleApp1\bin\Debug\netcoreapp2.2\Lettuce.DependencyInjection.pdb
+D:\project\ConsoleApp1\obj\Debug\netcoreapp2.2\ConsoleApp1.csproj.CopyComplete

@@ -8,13 +8,15 @@ namespace ConsoleApp1
         private static void Main(string[] args)
         {
             ILettuceContainer lettuceContainer = new LettuceContainer();
-
             lettuceContainer.Register<ITest, Test>();
-
             lettuceContainer.Register<ITest2, Test2>();
             var test = lettuceContainer.Resolver<ITest>();
+            //test.Say();
 
-            test.Say();
+
+
+
+
 
             Console.WriteLine("Hello World!");
 

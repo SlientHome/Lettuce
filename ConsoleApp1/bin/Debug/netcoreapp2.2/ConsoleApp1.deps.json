@@ -8,15 +8,15 @@
     ".NETCoreApp,Version=v2.2": {
       "ConsoleApp1/1.0.0": {
         "dependencies": {
-          "eTiersoft.DependencyInjection": "1.0.0"
+          "Lettuce.DependencyInjection": "1.0.0"
         },
         "runtime": {
           "ConsoleApp1.dll": {}
         }
       },
-      "eTiersoft.DependencyInjection/1.0.0": {
+      "Lettuce.DependencyInjection/1.0.0": {
         "runtime": {
-          "eTiersoft.DependencyInjection.dll": {}
+          "Lettuce.DependencyInjection.dll": {}
         }
       }
     }
@@ -27,7 +27,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "eTiersoft.DependencyInjection/1.0.0": {
+    "Lettuce.DependencyInjection/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
