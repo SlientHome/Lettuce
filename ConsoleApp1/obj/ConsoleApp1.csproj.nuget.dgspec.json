@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\ConsoleApp1\\ConsoleApp1.csproj": {}
+    "D:\\Projects\\GitHubProjects\\Lettuce\\ConsoleApp1\\ConsoleApp1.csproj": {}
   },
   "projects": {
-    "D:\\project\\ConsoleApp1\\ConsoleApp1.csproj": {
+    "D:\\Projects\\GitHubProjects\\Lettuce\\ConsoleApp1\\ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectUniqueName": "D:\\Projects\\GitHubProjects\\Lettuce\\ConsoleApp1\\ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
-        "projectPath": "D:\\project\\ConsoleApp1\\ConsoleApp1.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\ConsoleApp1\\obj\\",
+        "projectPath": "D:\\Projects\\GitHubProjects\\Lettuce\\ConsoleApp1\\ConsoleApp1.csproj",
+        "packagesPath": "C:\\Users\\silent\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GitHubProjects\\Lettuce\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\silent\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
-                "projectPath": "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj"
+              "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
+                "projectPath": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj"
               }
             }
           }
@@ -60,20 +60,20 @@
         }
       }
     },
-    "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
+    "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
+        "projectUniqueName": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
         "projectName": "Lettuce.DependencyInjection",
-        "projectPath": "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Lettuce.DependencyInjection\\obj\\",
+        "projectPath": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
+        "packagesPath": "C:\\Users\\silent\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\silent\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
