@@ -207,6 +207,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "Lettuce.DependencyInjection/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Lettuce.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Lettuce.DependencyInjection.dll": {}
+        }
       }
     }
   },
@@ -678,32 +688,37 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "Lettuce.DependencyInjection/1.0.0": {
+      "type": "project",
+      "path": "../Lettuce.DependencyInjection/Lettuce.DependencyInjection.csproj",
+      "msbuildProject": "../Lettuce.DependencyInjection/Lettuce.DependencyInjection.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
-      "D:\\Projects\\GitHubProjects\\eTiersoft.DependencyInjection\\eTiersoft.DependencyInjection.csproj",
+      "Lettuce.DependencyInjection >= 1.0.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\silent\\.nuget\\packages\\": {},
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\GitHubProjects\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "D:\\project\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "D:\\Projects\\GitHubProjects\\ConsoleApp1\\ConsoleApp1.csproj",
-      "packagesPath": "C:\\Users\\silent\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\GitHubProjects\\ConsoleApp1\\obj\\",
+      "projectPath": "D:\\project\\ConsoleApp1\\ConsoleApp1.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "D:\\project\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\silent\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -716,8 +731,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "D:\\Projects\\GitHubProjects\\eTiersoft.DependencyInjection\\eTiersoft.DependencyInjection.csproj": {
-              "projectPath": "D:\\Projects\\GitHubProjects\\eTiersoft.DependencyInjection\\eTiersoft.DependencyInjection.csproj"
+            "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
+              "projectPath": "D:\\project\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj"
             }
           }
         }
@@ -745,16 +760,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "找不到项目“D:\\Projects\\GitHubProjects\\eTiersoft.DependencyInjection\\eTiersoft.DependencyInjection.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
-      "libraryId": "D:\\Projects\\GitHubProjects\\eTiersoft.DependencyInjection\\eTiersoft.DependencyInjection.csproj",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.2"
-      ]
-    }
-  ]
+  }
 }

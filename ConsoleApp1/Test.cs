@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lettuce.DependencyInjection.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,5 +22,14 @@ namespace ConsoleApp1
             this.test2.Say();
             test22.Say();
         }
+
+
+        [Import]
+        public void MethodInInjection(ITest2 t2,int a)
+        {
+            t2.Say();
+        }
+
+
     }
 }

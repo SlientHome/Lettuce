@@ -1,0 +1,9 @@
+D:\project\Lettuce.DependencyInjection\bin\Debug\netstandard2.0\Lettuce.DependencyInjection.deps.json
+D:\project\Lettuce.DependencyInjection\bin\Debug\netstandard2.0\Lettuce.DependencyInjection.dll
+D:\project\Lettuce.DependencyInjection\bin\Debug\netstandard2.0\Lettuce.DependencyInjection.pdb
+D:\project\Lettuce.DependencyInjection\obj\Debug\netstandard2.0\Lettuce.DependencyInjection.csprojAssemblyReference.cache
+D:\project\Lettuce.DependencyInjection\obj\Debug\netstandard2.0\Lettuce.DependencyInjection.csproj.CoreCompileInputs.cache
+D:\project\Lettuce.DependencyInjection\obj\Debug\netstandard2.0\Lettuce.DependencyInjection.AssemblyInfoInputs.cache
+D:\project\Lettuce.DependencyInjection\obj\Debug\netstandard2.0\Lettuce.DependencyInjection.AssemblyInfo.cs
+D:\project\Lettuce.DependencyInjection\obj\Debug\netstandard2.0\Lettuce.DependencyInjection.dll
+D:\project\Lettuce.DependencyInjection\obj\Debug\netstandard2.0\Lettuce.DependencyInjection.pdb
