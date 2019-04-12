@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lettuce.DependencyInjection.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace Lettuce.DependencyInjection
         private object Create(Type abstracterType)
         {
             var ImplementerType = GetImplementerType(abstracterType);
-
+            if (ImplementerType == null)
+            {
+                return null;
+            }
             //构造函数注入
             var ctorInfo = ImplementerType.GetConstructors().OrderByDescending(p => p.GetParameters().Count()).FirstOrDefault();
             var parameterInfos = ctorInfo.GetParameters();

@@ -1,2 +1,10 @@
-bin
-obj
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs
+
+/ConsoleApp1/bin
+/ConsoleApp1/obj
+/Lettuce.DependencyInjection/bin
+/Lettuce.DependencyInjection/obj
