@@ -26,7 +26,6 @@ namespace Lettuce.DependencyInjection
             var ImplementerType = GetImplementerType(abstracterType);
 
             //构造函数注入
-            //获取构造函数
             var ctorInfo = ImplementerType.GetConstructors().OrderByDescending(p => p.GetParameters().Count()).FirstOrDefault();
             var parameterInfos = ctorInfo.GetParameters();
             List<object> args = new List<object>();
@@ -44,8 +43,20 @@ namespace Lettuce.DependencyInjection
                 propertyInfo.SetValue(Implementer, propertyObject);
             }
 
-            //方法注入
+            //方法注入(特性未处理)
+            var methodInfos = ImplementerType.GetMethods();
+            foreach (var methodInfo in methodInfos)
+            {
+                var methodParmeterInfos = methodInfo.GetParameters();
 
+                List<object> methodArgs = new List<object>();
+                foreach (var parameterInfo in methodParmeterInfos)
+                {
+                    methodArgs.Add(Create(parameterInfo.ParameterType));
+                }
+
+                methodInfo.Invoke(Implementer, methodArgs.ToArray());
+            }
             return Implementer;
         }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\GitHubProjects\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {}
+    "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\GitHubProjects\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
+    "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\GitHubProjects\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
+        "projectUniqueName": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
         "projectName": "Lettuce.DependencyInjection",
-        "projectPath": "D:\\Projects\\GitHubProjects\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
+        "projectPath": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\Lettuce.DependencyInjection.csproj",
         "packagesPath": "C:\\Users\\silent\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\GitHubProjects\\Lettuce.DependencyInjection\\obj\\",
+        "outputPath": "D:\\Projects\\GitHubProjects\\Lettuce\\Lettuce.DependencyInjection\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

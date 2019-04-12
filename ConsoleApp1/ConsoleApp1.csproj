@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\eTiersoft.DependencyInjection\eTiersoft.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Lettuce.DependencyInjection\Lettuce.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
