@@ -11,12 +11,7 @@ namespace ConsoleApp1
             lettuceContainer.Register<ITest, Test>();
             lettuceContainer.Register<ITest2, Test2>();
             var test = lettuceContainer.Resolver<ITest>();
-            //test.Say();
-
-
-
-
-
+            test.Say();
 
             Console.WriteLine("Hello World!");
 

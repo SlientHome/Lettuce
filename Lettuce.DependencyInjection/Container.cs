@@ -31,12 +31,7 @@ namespace Lettuce.DependencyInjection
             }
             //构造函数注入
             var ctorInfo = ImplementerType.GetConstructors().OrderByDescending(p => p.GetParameters().Count()).FirstOrDefault();
-            var parameterInfos = ctorInfo.GetParameters();
-            List<object> args = new List<object>();
-            foreach (var parameterInfo in parameterInfos)
-            {
-                args.Add(Create(parameterInfo.ParameterType));
-            }
+            var args = GetParmamters(ctorInfo.GetParameters());
             var Implementer = Activator.CreateInstance(ImplementerType, args.ToArray());
 
             //属性注入
@@ -47,19 +42,13 @@ namespace Lettuce.DependencyInjection
                 propertyInfo.SetValue(Implementer, propertyObject);
             }
 
-            //方法注入(特性未处理)
-            var methodInfos = ImplementerType.GetMethods();
+            //方法注入
+            var methodInfos = ImplementerType.GetMethods().Where(p => p.IsDefined(typeof(ImportAttribute), true));
+
             foreach (var methodInfo in methodInfos)
             {
-                var methodParmeterInfos = methodInfo.GetParameters();
-
-                List<object> methodArgs = new List<object>();
-                foreach (var parameterInfo in methodParmeterInfos)
-                {
-                    methodArgs.Add(Create(parameterInfo.ParameterType));
-                }
-
-                methodInfo.Invoke(Implementer, methodArgs.ToArray());
+                var paramsList = GetParmamters(methodInfo.GetParameters());
+                methodInfo.Invoke(Implementer, paramsList.ToArray());
             }
             return Implementer;
         }
@@ -73,6 +62,16 @@ namespace Lettuce.DependencyInjection
             var containerStore = Activator.CreateInstance(typeContainerStore);
             var implementerType = methodInfo.Invoke(containerStore, null);
             return (Type)implementerType;
+        }
+
+        private List<object> GetParmamters(ParameterInfo[] parameterInfos)
+        {
+            List<object> args = new List<object>();
+            foreach (var parameterInfo in parameterInfos)
+            {
+                args.Add(Create(parameterInfo.ParameterType));
+            }
+            return args;
         }
     }
 }
