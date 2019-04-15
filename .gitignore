@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/ConsoleApp1/obj
+/ConsoleApp1/bin
+/Lettuce.DependencyInjection/obj
+/Lettuce.DependencyInjection/bin
