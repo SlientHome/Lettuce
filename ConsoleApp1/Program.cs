@@ -1,5 +1,9 @@
-﻿using Lettuce.DependencyInjection;
+﻿using ConsoleApp1.ORM;
+using Lettuce.DependencyInjection;
+using Lettuce.ORM;
+using MySql.Data.MySqlClient;
 using System;
+using System.Data;
 
 namespace ConsoleApp1
 {
@@ -7,13 +11,29 @@ namespace ConsoleApp1
     {
         private static void Main(string[] args)
         {
-            ILettuceContainer lettuceContainer = new LettuceContainer();
-            lettuceContainer.Register<ITest, Test>();
-            lettuceContainer.Register<ITest2, Test2>();
-            var test = lettuceContainer.Resolver<ITest>();
-            test.Say();
+            string connectString  = "server=132.232.25.90;user id=root;pwd=Chenlike123_;port=3306;database=LettuceTest;charset=utf8mb4";
 
-            Console.WriteLine("Hello World!");
+            using (MySqlConnection conn = new MySqlConnection(connectString))
+            {
+                conn.Open();
+                var command = conn.CreateCommand();
+                command.CommandText = " select * from UserInfo ";
+
+                
+                IDataReader dataReader = command.ExecuteReader();
+
+                var t = typeof(IDataReader);
+                var meds = t.GetMethods();
+
+
+                //EntityMapping.MapReaderToModel<UserInfo>(dataReader);
+
+                Console.WriteLine();
+
+
+            }
+
+
 
             Console.ReadLine();
         }

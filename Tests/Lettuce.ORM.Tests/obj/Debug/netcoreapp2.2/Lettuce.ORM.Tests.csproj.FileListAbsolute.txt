@@ -1,0 +1,14 @@
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.Tests.deps.json
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.Tests.runtimeconfig.json
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.Tests.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.Tests.dll
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.Tests.pdb
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.dll
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.pdb

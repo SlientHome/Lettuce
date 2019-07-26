@@ -7,6 +7,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lettuce.DependencyInjection\Lettuce.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Lettuce.ORM\Lettuce.ORM.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.17" />
   </ItemGroup>
 
 </Project>
