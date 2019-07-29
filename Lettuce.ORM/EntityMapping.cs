@@ -1,4 +1,4 @@
-﻿using Lettuce.ORM.Model;
+﻿using Lettuce.ORM.ServiceInterfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,92 +9,39 @@ using System.Reflection.Emit;
 
 namespace Lettuce.ORM
 {
-    public class EntityMapping
+    public class EntityDataMapping<TEntity> : IEntityDataMapping<TEntity>
     {
-
-
-
-        public static List<T> MapReaderToModel<T>(IDataReader reader)
+        public List<string> FieldsList = new List<string>();
+        private Func<IDataReader, TEntity> MapFunc { get; set; } = null;
+        public Func<IDataReader, TEntity> GenerateEntityMapperFunc()
         {
+            var type = typeof(TEntity);
+            var propertyInfos = type.GetProperties().Where(t=> t.GetSetMethod()!=null).ToList();
 
-            string[] fileList = new string[reader.FieldCount];
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                fileList[i] = reader.GetName(i);
-            }
-            Func<IDataReader, object> serializeMethod = GenerateSerializer<T>();
-            return null;
-        }
-
-        public static Func<IDataReader, List<T> > GenerateSerializer<T>()
-        {
-
-            var type = typeof(T);
-            var propertyInfos = type.GetProperties();
-            List<PropertyMethodModel> setMethodInfos = new List<PropertyMethodModel>(propertyInfos.Length);
-            for (int i = 0; i < propertyInfos.Length; i++)
-            {
-                if(propertyInfos[i].SetMethod != null)
-                {
-                    setMethodInfos.Add(new PropertyMethodModel()
-                    {
-                        PropertyName = propertyInfos[i].Name,
-                        SetMethod = propertyInfos[i].SetMethod
-                    });
-                }
-            }
-
-            // read() 方法
-            MethodInfo DataReader_Read = typeof(IDataReader).GetMethod("Read");
-
-            //返回类型
-            Type returnListType = typeof(List<T>);
-
-            DynamicMethod dymMethod = new DynamicMethod("GetEmitList_PropertyMethod_"+type.Name, returnListType, new Type[] { typeof(IDataReader) }, true);
-            //返回类型 构造器
-            ConstructorInfo constructorInfo = returnListType.GetConstructors().FirstOrDefault();
+            DynamicMethod dymMethod = new DynamicMethod("GetEntity_PropertyMethod_"+type.Name, type, new Type[] { typeof(IDataReader) }, true);
+            // 对象 默认无参构造函数
+            ConstructorInfo entityConstructorInfo = typeof(TEntity).GetConstructors().FirstOrDefault(t => t.GetParameters().Length == 0); ;
 
             ILGenerator il = dymMethod.GetILGenerator();
-
-
-
-            /* while起点  */
-            Label whileStartLabel = il.DefineLabel();
-            /* while起点  */
-            Label whileIfLabel = il.DefineLabel();
-
-            // 定义 List<T> 
-            il.DeclareLocal(returnListType);
-            // new 一个新的 List<T> 
-            il.Emit(OpCodes.Newobj, constructorInfo);
-            // 存到Record Frame 第0个位置
+            il.DeclareLocal(typeof(TEntity));// 局部变量位置 0
+            // 存到局部变量 第0个位置
+            il.Emit(OpCodes.Newobj, entityConstructorInfo);
             il.Emit(OpCodes.Stloc, 0);
-
-
-            // 把第0个参数 IDataReader 加载到计算栈 
-            il.Emit(OpCodes.Ldarg, 0);
-
-
-
-
-            // 调用IDataReader.Read()方法  返回true false 到计算栈
-            il.Emit(OpCodes.Callvirt, DataReader_Read);
-
-
-
-
-
+            il.Emit(OpCodes.Ldloc, 0);
+            il.Emit(OpCodes.Box, typeof(TEntity));
             il.Emit(OpCodes.Ret);
 
 
 
+           // typeof(IDataReader).GetMethods().FirstOrDefault(t=>t.)
 
-
-
+            return null;
         }
 
-
-
+        public TEntity MapEntity(IDataReader dataReader)
+        {
+            throw new NotImplementedException();
+        }
 
 
 

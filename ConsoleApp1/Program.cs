@@ -21,9 +21,11 @@ namespace ConsoleApp1
 
                 
                 IDataReader dataReader = command.ExecuteReader();
-
+                dataReader.Read();
                 var t = typeof(IDataReader);
                 var meds = t.GetMethods();
+
+
 
 
                 //EntityMapping.MapReaderToModel<UserInfo>(dataReader);
