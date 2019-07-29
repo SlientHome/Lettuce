@@ -28,7 +28,7 @@ namespace Lettuce.ORM
 
         public static Func<IDataReader, List<T> > GenerateSerializer<T>()
         {
-            return null;
+
             var type = typeof(T);
             var propertyInfos = type.GetProperties();
             List<PropertyMethodModel> setMethodInfos = new List<PropertyMethodModel>(propertyInfos.Length);
@@ -57,7 +57,11 @@ namespace Lettuce.ORM
             ILGenerator il = dymMethod.GetILGenerator();
 
 
-            
+
+            /* while起点  */
+            Label whileStartLabel = il.DefineLabel();
+            /* while起点  */
+            Label whileIfLabel = il.DefineLabel();
 
             // 定义 List<T> 
             il.DeclareLocal(returnListType);
@@ -66,11 +70,10 @@ namespace Lettuce.ORM
             // 存到Record Frame 第0个位置
             il.Emit(OpCodes.Stloc, 0);
 
-            /* while起点  */
-            Label whileStartLabel = il.DefineLabel();
 
             // 把第0个参数 IDataReader 加载到计算栈 
             il.Emit(OpCodes.Ldarg, 0);
+
 
 
 

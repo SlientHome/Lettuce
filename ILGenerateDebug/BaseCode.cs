@@ -18,7 +18,7 @@ namespace ILGenerateDebug
         }
         public string GenerateCSharp()
         {
-            string dllPath = $"./{Guid.NewGuid().ToString()}.dll";
+            string dllPath = $"./fordebug.dll";
             var generator = new AssemblyGenerator();
             generator.GenerateAssembly(Builder, dllPath);
             CSharpDecompiler decompiler = new CSharpDecompiler(dllPath, new ICSharpCode.Decompiler.DecompilerSettings());

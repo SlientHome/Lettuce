@@ -6,3 +6,4 @@ C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Lettuce.ORM\obj\Debug\netcorea
 C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Lettuce.ORM\obj\Debug\netcoreapp2.2\Lettuce.ORM.AssemblyInfo.cs
 C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Lettuce.ORM\obj\Debug\netcoreapp2.2\Lettuce.ORM.dll
 C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Lettuce.ORM\obj\Debug\netcoreapp2.2\Lettuce.ORM.pdb
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Lettuce.ORM\obj\Debug\netcoreapp2.2\Lettuce.ORM.csprojAssemblyReference.cache
