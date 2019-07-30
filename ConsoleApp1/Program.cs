@@ -22,15 +22,23 @@ namespace ConsoleApp1
                 
                 IDataReader dataReader = command.ExecuteReader();
                 dataReader.Read();
-                var t = typeof(IDataReader);
-                var meds = t.GetMethods();
+                // dataReader[1]
+                EntityDataMapping<UserInfo> entityData = new EntityDataMapping<UserInfo>();
+                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+                {
+                    FieldName = "UserName",
+                    FieldInDbType = typeof(string),
+                    SetMethod = typeof(UserInfo).GetMethod("set_UserName")
+                });
+                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+                {
+                    FieldName = "Password",
+                    FieldInDbType = typeof(string),
+                    SetMethod = typeof(UserInfo).GetMethod("set_Password")
+                });
 
 
-
-
-                //EntityMapping.MapReaderToModel<UserInfo>(dataReader);
-
-                Console.WriteLine();
+                entityData.GenerateEntityMapperFunc();
 
 
             }
