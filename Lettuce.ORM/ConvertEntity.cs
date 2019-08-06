@@ -10,8 +10,13 @@ using System.Text;
 
 namespace Lettuce.ORM
 {
-    public class EntityDataMapping<TEntity> where TEntity:class
+    internal class ConvertEntity<TEntity> where TEntity:class
     {
+
+
+        internal static ConcurrentDictionary<string, ConvertEntity<TEntity>> Cache = new ConcurrentDictionary<string, ConvertEntity<TEntity>>();
+
+
         public readonly static MethodInfo DataReaderGetValueMethodInfo = typeof(IDataRecord).GetMethod("GetValue");
         /// <summary>
         /// 识别用的key
@@ -22,7 +27,7 @@ namespace Lettuce.ORM
         /// </summary>
         public readonly List<FieldEntityInfo> ExistFieldsList;
 
-        private Func<IDataReader, TEntity> MapFunc { get; set; } = null;
+        private Func<IDataReader, TEntity> ConvertFunc { get; set; } = null;
         private const int ERROR_LIMIT = 2;
         /// <summary>
         /// 生成数据库读取方法
@@ -31,16 +36,6 @@ namespace Lettuce.ORM
         public Func<IDataReader, TEntity> GenerateEntityMapperFunc()
         {
             var type = typeof(TEntity);
-            var propertyInfos = type.GetProperties().Where(t=> t.GetSetMethod()!=null).ToList();
-            List<FieldEntityInfo> unionFiled = new List<FieldEntityInfo>();
-
-            for(int i = 0; i < ExistFieldsList.Count; i++)
-            {
-                if(propertyInfos.Exists(t => t.Name.ToLower() == ExistFieldsList[i].FieldName.ToLower()))
-                {
-                    unionFiled.Add(ExistFieldsList[i]);
-                }
-            }
 
             DynamicMethod dymMethod = new DynamicMethod("GetEntity_PropertyMethod_"+type.Name, type, new Type[] { typeof(IDataReader) }, true);
             // 对象 默认无参构造函数
@@ -56,17 +51,17 @@ namespace Lettuce.ORM
             // 保存起来
             il.Emit(OpCodes.Stloc, entityIL);
 
-            for (int i = 0; i < unionFiled.Count; i++)
+            for (int i = 0; i < ExistFieldsList.Count; i++)
             {
                 // 用于接收读出来的数据
-                var getValueFromReader = il.DeclareLocal(unionFiled[i].FieldInDbType);
+                var getValueFromReader = il.DeclareLocal(ExistFieldsList[i].FieldInDbType);
                 il.Emit(OpCodes.Ldarg, 0);
                 // 数据位置
-                il.Emit(OpCodes.Ldc_I4, unionFiled[i].Index );
+                il.Emit(OpCodes.Ldc_I4, ExistFieldsList[i].Index );
                 // 调用datareader.Getvalue()  返回值到栈顶
                 il.Emit(OpCodes.Callvirt, DataReaderGetValueMethodInfo);
                 // 把栈顶的值 拆箱成FieldInDbType类型
-                il.Emit(OpCodes.Unbox_Any, unionFiled[i].FieldInDbType);
+                il.Emit(OpCodes.Unbox_Any, ExistFieldsList[i].FieldInDbType);
                 // 保存
                 il.Emit(OpCodes.Stloc, getValueFromReader);
                 // 读取创建的对象
@@ -74,7 +69,7 @@ namespace Lettuce.ORM
                 // 读取值
                 il.Emit(OpCodes.Ldloc, getValueFromReader);
                 // set 值
-                il.Emit(OpCodes.Callvirt, unionFiled[i].SetMethod);
+                il.Emit(OpCodes.Callvirt, ExistFieldsList[i].SetMethod);
             }
             // 读取对象
             il.Emit(OpCodes.Ldloc, entityIL);
@@ -82,43 +77,50 @@ namespace Lettuce.ORM
             il.Emit(OpCodes.Ret);
 
             Func<IDataReader, TEntity> function = (Func<IDataReader, TEntity>)dymMethod.CreateDelegate(typeof(Func<IDataReader, TEntity>));
-
+            ConvertFunc = function;
             return function;
         }
-        /// <summary>
-        /// 映射对象
-        /// </summary>
-        /// <param name="dataReader"></param>
-        /// <returns></returns>
-        public TEntity MapEntity(IDataReader dataReader)
+        ///// <summary>
+        ///// 映射对象
+        ///// </summary>
+        ///// <param name="dataReader"></param>
+        ///// <returns></returns>
+        //public TEntity ConvertToEntity(IDataReader dataReader)
+        //{
+        //    TEntity entity = null;
+        //    if (MapFunc == null)
+        //    {
+        //        MapFunc = GenerateEntityMapperFunc();
+        //    }
+        //    int errorCount = 0;
+        //    while (errorCount < ERROR_LIMIT)
+        //    {
+        //        try
+        //        {
+        //            if (errorCount != 0)
+        //            {
+        //                MapFunc = GenerateEntityMapperFunc();
+        //            }
+        //            entity = MapFunc(dataReader);
+        //            break;
+        //        }
+        //        catch(Exception ex)
+        //        {
+        //            errorCount++;
+        //            // TODO
+        //        }
+        //    }
+        //    return entity;
+        //}
+        public Func<IDataReader, TEntity> GetConvertFunc()
         {
-            TEntity entity = null;
-            if (MapFunc == null)
+            if(ConvertFunc == null)
             {
-                MapFunc = GenerateEntityMapperFunc();
+                GenerateEntityMapperFunc();
             }
-            int errorCount = 0;
-            while (errorCount < ERROR_LIMIT)
-            {
-                try
-                {
-                    if (errorCount != 0)
-                    {
-                        MapFunc = GenerateEntityMapperFunc();
-                    }
-                    entity = MapFunc(dataReader);
-                    break;
-                }
-                catch(Exception ex)
-                {
-                    errorCount++;
-                    // TODO
-                }
-            }
-            return entity;
+            return ConvertFunc;
         }
-
-        public EntityDataMapping(List<FieldEntityInfo> fieldEntityInfos)
+        public ConvertEntity(List<FieldEntityInfo> fieldEntityInfos)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(typeof(TEntity).Name).Append("_");
