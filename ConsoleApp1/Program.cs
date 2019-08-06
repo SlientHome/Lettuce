@@ -17,13 +17,19 @@ namespace ConsoleApp1
             {
                 conn.Open();
                 var command = conn.CreateCommand();
-                command.CommandText = " select * from UserInfo ";
+                command.CommandText = " select Id,UserName,Password from UserInfo ";
 
                 
                 IDataReader dataReader = command.ExecuteReader();
                 dataReader.Read();
-                // dataReader[1]
+
                 EntityDataMapping<UserInfo> entityData = new EntityDataMapping<UserInfo>();
+                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+                {
+                    FieldName = "Id",
+                    FieldInDbType = typeof(int),
+                    SetMethod = typeof(UserInfo).GetMethod("set_Id")
+                });
                 entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
                 {
                     FieldName = "UserName",
@@ -36,9 +42,19 @@ namespace ConsoleApp1
                     FieldInDbType = typeof(string),
                     SetMethod = typeof(UserInfo).GetMethod("set_Password")
                 });
+                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+                {
+                    FieldName = "CreateTime",
+                    FieldInDbType = typeof(DateTime),
+                    SetMethod = typeof(UserInfo).GetMethod("set_CreateTime")
+                });
 
 
-                entityData.GenerateEntityMapperFunc();
+
+                var function = entityData.GenerateEntityMapperFunc();
+                var a = function(dataReader);
+                Console.WriteLine();
+
 
 
             }

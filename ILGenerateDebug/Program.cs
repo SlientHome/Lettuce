@@ -1,8 +1,10 @@
 ﻿using ICSharpCode.Decompiler;
 using ICSharpCode.Decompiler.CSharp;
 using ICSharpCode.Decompiler.CSharp.OutputVisitor;
+using ILGenerateDebug.Model;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection.Emit;
 
 namespace ILGenerateDebug
@@ -14,33 +16,17 @@ namespace ILGenerateDebug
 
             var target = ILDebugger.CreateILCodeFunction();
             var il = target.IL;
+            var b = typeof(TestModel1).GetMethod("B");
+            il.DeclareLocal(typeof(string));
+
+            il.Emit(OpCodes.Ldstr, "123456789");
+            il.Emit(OpCodes.Callvirt,b);
 
 
+            il.Emit(OpCodes.Stloc, 0);
 
 
-
-
-
-
-            /* while起点  */
-            Label whileStartLabel = il.DefineLabel();
-            Label whileIfLable = il.DefineLabel();
-
-
-            il.DeclareLocal(typeof(int));
-            il.Emit(OpCodes.Ldc_I4, 5);
-            il.Emit(OpCodes.Stloc_0);
             il.Emit(OpCodes.Ret);
-
-
-
-
-
-
-
-
-
-
             string code = target.GenerateCSharp();
             Console.WriteLine();
         }

@@ -11,5 +11,6 @@ namespace Lettuce.ORM.Model
         public Type FieldInDbType { get; set; }
 
         public MethodInfo SetMethod { get; set; }
+
     }
 }

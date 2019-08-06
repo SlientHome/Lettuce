@@ -10,5 +10,7 @@ namespace ConsoleApp1.ORM
         public string UserName { get; set; }
         public string Password { get; set; }
         public string NickName { get; set; }
+
+        public DateTime CreateTime { get; set; }
     }
 }
