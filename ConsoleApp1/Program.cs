@@ -14,32 +14,36 @@ namespace ConsoleApp1
     {
         private static void Main(string[] args)
         {
-            const int NUM = 2;
+            const int NUM = 100;
             string connectString  = "server=132.232.25.90;user id=root;pwd=Chenlike123_;port=3306;database=LettuceTest;charset=utf8mb4";
-            Stopwatch s1 = new Stopwatch();
-            Stopwatch s2 = new Stopwatch();
-            s1.Start();
+
             using (MySqlConnection conn = new MySqlConnection(connectString))
             {
-                for (int i = 0; i < NUM; i++)
+                for (int loop = 0; loop < 10; loop++)
                 {
-                    var list = conn.QuerySql<UserInfo>("select Id,UserName,Password from UserInfo");
+                    Console.WriteLine($"loop:{loop+1}");
+                    Stopwatch s1 = new Stopwatch();
+                    s1.Start();
+                    for (int i = 0; i < NUM; i++)
+                    {
+                        var list = conn.Query<UserInfo>("select Id,UserName,Password from UserInfo").AsList();
+                    }
+                    s1.Stop();
+                    Console.WriteLine("Dapper:"+s1.ElapsedMilliseconds);
+                    Stopwatch s2 = new Stopwatch();
+                    s2.Start();
+                    for (int i = 0; i < NUM; i++)
+                    {
+                        var list = conn.QuerySql<UserInfo>("select Id,UserName,Password from UserInfo");
+                    }
+                    s2.Stop();
+                    Console.WriteLine("My:" + s2.ElapsedMilliseconds);
                 }
             }
-            s1.Stop();
 
-            s2.Start();
-            using (MySqlConnection conn = new MySqlConnection(connectString))
-            {
-                for (int i = 0; i < NUM; i++)
-                {
-                    var list = conn.Query<UserInfo>("select Id,UserName,Password from UserInfo").AsList();
-                }
-            }
-            s2.Stop();
 
-            Console.WriteLine($"my: {s1.ElapsedMilliseconds}   ");
-            Console.WriteLine($"dapper:{s2.ElapsedMilliseconds}");
+
+            Console.WriteLine($"over ");
             Console.ReadLine();
         }
     }
