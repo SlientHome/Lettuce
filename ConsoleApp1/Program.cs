@@ -1,9 +1,12 @@
 ﻿using ConsoleApp1.ORM;
 using Lettuce.DependencyInjection;
 using Lettuce.ORM;
+using Lettuce.ORM.Model;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 
 namespace ConsoleApp1
 {
@@ -17,37 +20,40 @@ namespace ConsoleApp1
             {
                 conn.Open();
                 var command = conn.CreateCommand();
-                command.CommandText = " select Id,UserName,Password from UserInfo ";
+                command.CommandText = " select Id,UserName,Password from UserInfo where id='123123'";
 
                 
                 IDataReader dataReader = command.ExecuteReader();
                 dataReader.Read();
 
-                EntityDataMapping<UserInfo> entityData = new EntityDataMapping<UserInfo>();
-                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+
+                List<FieldEntityInfo> list = new List<FieldEntityInfo>();
+
+                list.Add(new Lettuce.ORM.Model.FieldEntityInfo()
                 {
                     FieldName = "Id",
                     FieldInDbType = typeof(int),
-                    SetMethod = typeof(UserInfo).GetMethod("set_Id")
+                    SetMethod = typeof(UserInfo).GetMethod("set_Id"),
+                    Index = 0
                 });
-                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+                list.Add(new Lettuce.ORM.Model.FieldEntityInfo()
                 {
                     FieldName = "UserName",
                     FieldInDbType = typeof(string),
-                    SetMethod = typeof(UserInfo).GetMethod("set_UserName")
+                    SetMethod = typeof(UserInfo).GetMethod("set_UserName"),
+                    Index = 1
                 });
-                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
+                list.Add(new Lettuce.ORM.Model.FieldEntityInfo()
                 {
                     FieldName = "Password",
                     FieldInDbType = typeof(string),
-                    SetMethod = typeof(UserInfo).GetMethod("set_Password")
+                    SetMethod = typeof(UserInfo).GetMethod("set_Password"),
+                    Index = 2
                 });
-                entityData.ExistFieldsList.Add(new Lettuce.ORM.Model.FieldEntityInfo()
-                {
-                    FieldName = "CreateTime",
-                    FieldInDbType = typeof(DateTime),
-                    SetMethod = typeof(UserInfo).GetMethod("set_CreateTime")
-                });
+
+
+
+                EntityDataMapping<UserInfo> entityData = new EntityDataMapping<UserInfo>(list);
 
 
 
@@ -56,11 +62,10 @@ namespace ConsoleApp1
                 Console.WriteLine();
 
 
-
             }
 
 
-
+            Console.WriteLine("over");
             Console.ReadLine();
         }
     }

@@ -12,5 +12,6 @@ namespace Lettuce.ORM.Model
 
         public MethodInfo SetMethod { get; set; }
 
+        public int Index { get; set; }
     }
 }

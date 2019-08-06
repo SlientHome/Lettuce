@@ -10,10 +10,16 @@ using System.Text;
 
 namespace Lettuce.ORM
 {
-    internal class EntityDataMapping<TEntity>
+    public class EntityDataMapping<TEntity> where TEntity:class
     {
-         
+        public readonly static MethodInfo DataReaderGetValueMethodInfo = typeof(IDataRecord).GetMethod("GetValue");
+        /// <summary>
+        /// 识别用的key
+        /// </summary>
         public readonly string IdentityKey;
+        /// <summary>
+        /// 字段
+        /// </summary>
         public readonly List<FieldEntityInfo> ExistFieldsList;
 
         private Func<IDataReader, TEntity> MapFunc { get; set; } = null;
@@ -26,6 +32,15 @@ namespace Lettuce.ORM
         {
             var type = typeof(TEntity);
             var propertyInfos = type.GetProperties().Where(t=> t.GetSetMethod()!=null).ToList();
+            List<FieldEntityInfo> unionFiled = new List<FieldEntityInfo>();
+
+            for(int i = 0; i < ExistFieldsList.Count; i++)
+            {
+                if(propertyInfos.Exists(t => t.Name.ToLower() == ExistFieldsList[i].FieldName.ToLower()))
+                {
+                    unionFiled.Add(ExistFieldsList[i]);
+                }
+            }
 
             DynamicMethod dymMethod = new DynamicMethod("GetEntity_PropertyMethod_"+type.Name, type, new Type[] { typeof(IDataReader) }, true);
             // 对象 默认无参构造函数
@@ -41,17 +56,17 @@ namespace Lettuce.ORM
             // 保存起来
             il.Emit(OpCodes.Stloc, entityIL);
 
-            for (int i = 0; i < ExistFieldsList.Count; i++)
+            for (int i = 0; i < unionFiled.Count; i++)
             {
                 // 用于接收读出来的数据
-                var getValueFromReader = il.DeclareLocal(ExistFieldsList[i].FieldInDbType);
+                var getValueFromReader = il.DeclareLocal(unionFiled[i].FieldInDbType);
                 il.Emit(OpCodes.Ldarg, 0);
                 // 数据位置
-                il.Emit(OpCodes.Ldc_I4, i );
+                il.Emit(OpCodes.Ldc_I4, unionFiled[i].Index );
                 // 调用datareader.Getvalue()  返回值到栈顶
-                il.Emit(OpCodes.Callvirt, ILCallFunction.DataReaderGetValueMethodInfo);
+                il.Emit(OpCodes.Callvirt, DataReaderGetValueMethodInfo);
                 // 把栈顶的值 拆箱成FieldInDbType类型
-                il.Emit(OpCodes.Unbox_Any, ExistFieldsList[i].FieldInDbType);
+                il.Emit(OpCodes.Unbox_Any, unionFiled[i].FieldInDbType);
                 // 保存
                 il.Emit(OpCodes.Stloc, getValueFromReader);
                 // 读取创建的对象
@@ -59,7 +74,7 @@ namespace Lettuce.ORM
                 // 读取值
                 il.Emit(OpCodes.Ldloc, getValueFromReader);
                 // set 值
-                il.Emit(OpCodes.Callvirt, ExistFieldsList[i].SetMethod);
+                il.Emit(OpCodes.Callvirt, unionFiled[i].SetMethod);
             }
             // 读取对象
             il.Emit(OpCodes.Ldloc, entityIL);
@@ -70,24 +85,37 @@ namespace Lettuce.ORM
 
             return function;
         }
-
+        /// <summary>
+        /// 映射对象
+        /// </summary>
+        /// <param name="dataReader"></param>
+        /// <returns></returns>
         public TEntity MapEntity(IDataReader dataReader)
         {
-            return null;
-            if(MapFunc == null)
+            TEntity entity = null;
+            if (MapFunc == null)
             {
                 MapFunc = GenerateEntityMapperFunc();
             }
             int errorCount = 0;
-            while(errorCount< ERROR_LIMIT)
+            while (errorCount < ERROR_LIMIT)
             {
-
+                try
+                {
+                    if (errorCount != 0)
+                    {
+                        MapFunc = GenerateEntityMapperFunc();
+                    }
+                    entity = MapFunc(dataReader);
+                    break;
+                }
+                catch(Exception ex)
+                {
+                    errorCount++;
+                    // TODO
+                }
             }
-
-
-            
-
-
+            return entity;
         }
 
         public EntityDataMapping(List<FieldEntityInfo> fieldEntityInfos)
