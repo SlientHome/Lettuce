@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Text;
 
 namespace Lettuce.ORM
@@ -19,19 +20,23 @@ namespace Lettuce.ORM
             {
                 connection.Open();
             }
-
-            var command = connection.CreateCommand();
-            command.CommandText = sql;
-            IDataReader dataReader = command.ExecuteReader();
-
-            var convertFunc = MapHelper.GetConvertFunction<TEntity>(dataReader);
             List<TEntity> list = new List<TEntity>();
-            while (dataReader.Read())
+            using (var command = connection.CreateCommand())
             {
-                var  entity = convertFunc(dataReader);
-                list.Add(entity);
+                command.CommandText = sql;
+                IDataReader dataReader = command.ExecuteReader();
+
+                var convertFunc = MapHelper.GetConvertFunction<TEntity>(dataReader);
+
+                while (dataReader.Read())
+                {
+                    var entity = convertFunc(dataReader);
+                    list.Add(entity);
+                }
+                dataReader.Dispose();
             }
-            connection.Close();
+
+
             return list;
         }
 
