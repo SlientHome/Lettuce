@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Lettuce.ORM
+namespace Lettuce.ORM.ConvertEntity
 {
     public class MapHelper
     {

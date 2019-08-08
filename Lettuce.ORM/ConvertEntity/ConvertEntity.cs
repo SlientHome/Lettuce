@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Lettuce.ORM
+namespace Lettuce.ORM.ConvertEntity
 {
     internal class ConvertEntity<TEntity> where TEntity:class
     {
@@ -20,10 +20,7 @@ namespace Lettuce.ORM
         internal readonly static MethodInfo ToStringMethodInfo = typeof(object).GetMethod("ToString");
         #endregion
 
-
-
         internal static ConcurrentDictionary<string, ConvertEntity<TEntity>> Cache = new ConcurrentDictionary<string, ConvertEntity<TEntity>>();
-
         public readonly static MethodInfo DataReaderGetValueMethodInfo = typeof(IDataRecord).GetMethod("GetValue");
         /// <summary>
         /// 识别用的key
@@ -35,7 +32,7 @@ namespace Lettuce.ORM
         public readonly List<FieldEntityInfo> ExistFieldsList;
 
         private Func<IDataReader, TEntity> ConvertFunc { get; set; } = null;
-        private const int ERROR_LIMIT = 2;
+
         /// <summary>
         /// 生成数据库读取方法
         /// </summary>
@@ -69,21 +66,16 @@ namespace Lettuce.ORM
                 Label ifOut = il.DefineLabel();
                 // 用于接收读出来的数据
                 var getValueFromReader = il.DeclareLocal(ExistFieldsList[i].FieldInDbType);
-
-
                 il.Emit(OpCodes.Ldarg, 0);
                 // 数据位置
                 il.Emit(OpCodes.Ldc_I4, ExistFieldsList[i].Index );
                 // 调用datareader.Getvalue()  返回值到栈顶
                 il.Emit(OpCodes.Callvirt, DataReaderGetValueMethodInfo);
                 il.Emit(OpCodes.Stloc, getValueTempObject);
-                
-
+               
                 il.Emit(OpCodes.Br_S, ifStart);
                 // 外层 IF 中的内容
                 il.MarkLabel(ifContent);
-
-
                 // 如果实体是string类型  用ToString() 处理
                 if(ExistFieldsList[i].FieldInEntityModelType == typeof(string))
                 {
@@ -147,9 +139,6 @@ namespace Lettuce.ORM
                      if(tempValue.GetType() != dbNullType){
                             entity.set_xxx(tempValue.ToString());
                      }
-
-
-
                    return entity;
             }
              
@@ -158,6 +147,10 @@ namespace Lettuce.ORM
             ConvertFunc = function;
             return function;
         }
+        /// <summary>
+        /// 获得映射Func
+        /// </summary>
+        /// <returns></returns>
         public Func<IDataReader, TEntity> GetConvertFunc()
         {
             if(ConvertFunc == null)

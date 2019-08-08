@@ -16,35 +16,6 @@ namespace ConsoleApp1
     {
         const int NUM = 200;
         static string connectString = "server=106.13.201.113;user id=root;pwd=Chenlike123_;port=3306;database=LettuceTest;charset=utf8mb4";
-        static void LettuceORM()
-        {
-            Console.WriteLine("LettuceORM start");
-            long sum = 0;
-
-            using (MySqlConnection conn = new MySqlConnection(connectString))
-            {
-                int loop = 0;
-                while (loop < NUM)
-                {
-                    Stopwatch s1 = new Stopwatch();
-                    s1.Start();
-
-                    var a = conn.QuerySql<UserInfo>("select Id,UserName,Password,CreateTime from UserInfo");
-                    //var a = conn.Query<UserInfo>("select Id,UserName,Password,CreateTime from UserInfo").ToList();
-                    s1.Stop();
-                    //Console.WriteLine(s1.ElapsedMilliseconds);
-                    loop++;
-                    if (loop == 1)
-                    {
-                        Console.WriteLine($"LettuceORM first query {s1.ElapsedMilliseconds}");
-                    }
-                    sum += s1.ElapsedMilliseconds;
-                }
-
-            }
-            Console.WriteLine($"LettuceORM sum:{sum} avg:{sum/NUM}");
-            Console.WriteLine("LettuceORM end");
-        }
 
         static void Dapper()
         {
@@ -77,11 +48,16 @@ namespace ConsoleApp1
 
         private static void Main(string[] args)
         {
-            //LettuceORM();
-            //Dapper();
 
-            //Dapper();
-            LettuceORM();
+            using (MySqlConnection conn = new MySqlConnection(connectString))
+            {
+                UserInfo a = new UserInfo();
+                a.NickName = "1";
+                conn.Execute("insert into UserInfo(NickName) values(@Name)", a);
+                Console.WriteLine();
+            }
+
+
             Console.ReadLine();
         }
     }
