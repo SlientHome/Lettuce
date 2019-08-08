@@ -54,7 +54,8 @@ namespace Lettuce.ORM
                         Index = i,
                         SetMethod = property.SetMethod,
                         FieldName = fieldName,
-                        FieldInDbType = reader.GetFieldType(i)
+                        FieldInDbType = reader.GetFieldType(i),
+                        FieldInEntityModelType = property.PropertyType
                     });
 
                 }

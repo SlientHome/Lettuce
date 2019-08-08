@@ -17,6 +17,7 @@ namespace Lettuce.ORM
         #region Type & MethodInfo
         internal readonly static Type DbNullType = typeof(DBNull);
         internal readonly static MethodInfo GetTypeMethodInfo = typeof(object).GetMethod("GetType");
+        internal readonly static MethodInfo ToStringMethodInfo = typeof(object).GetMethod("ToString");
         #endregion
 
 
@@ -56,7 +57,7 @@ namespace Lettuce.ORM
             il.Emit(OpCodes.Newobj, entityConstructorInfo);
             // 保存起来
             il.Emit(OpCodes.Stloc, entityIL);
-
+            // 存object用的局部变量
             var getValueTempObject = il.DeclareLocal(typeof(object));
             var dbNullTypeObj = il.DeclareLocal(typeof(Type));
             il.Emit(OpCodes.Ldtoken, DbNullType);
@@ -79,39 +80,80 @@ namespace Lettuce.ORM
                 
 
                 il.Emit(OpCodes.Br_S, ifStart);
+                // 外层 IF 中的内容
                 il.MarkLabel(ifContent);
 
-                il.Emit(OpCodes.Ldloc, getValueTempObject);
-                // 把栈顶的值 拆箱成FieldInDbType类型
-                il.Emit(OpCodes.Unbox_Any, ExistFieldsList[i].FieldInDbType);
-                
-                // 保存
-                il.Emit(OpCodes.Stloc, getValueFromReader);
-                // 读取创建的对象
-                il.Emit(OpCodes.Ldloc, entityIL);
-                // 读取值
-                il.Emit(OpCodes.Ldloc, getValueFromReader);
-                // set 值
-                il.Emit(OpCodes.Callvirt, ExistFieldsList[i].SetMethod);
+
+                // 如果实体是string类型  用ToString() 处理
+                if(ExistFieldsList[i].FieldInEntityModelType == typeof(string))
+                {
+                    // 读取创建的对象
+                    il.Emit(OpCodes.Ldloc, entityIL);
+                    // 读取值
+                    il.Emit(OpCodes.Ldloc, getValueTempObject);
+                    il.Emit(OpCodes.Callvirt, ToStringMethodInfo);
+                    // set 值
+                    il.Emit(OpCodes.Callvirt, ExistFieldsList[i].SetMethod);
+                }
+                else
+                {
+                    il.Emit(OpCodes.Ldloc, getValueTempObject);
+                    // 把栈顶的值 拆箱成FieldInDbType类型
+                    il.Emit(OpCodes.Unbox_Any, ExistFieldsList[i].FieldInDbType);
+                    // 保存
+                    il.Emit(OpCodes.Stloc, getValueFromReader);
+                    // 读取创建的对象
+                    il.Emit(OpCodes.Ldloc, entityIL);
+                    // 读取值
+                    il.Emit(OpCodes.Ldloc, getValueFromReader);
+                    // set 值
+                    il.Emit(OpCodes.Callvirt, ExistFieldsList[i].SetMethod);
+                }
                 il.Emit(OpCodes.Br_S, ifOut);
 
 
+                // IF 开始
                 il.MarkLabel(ifStart);
                 il.Emit(OpCodes.Ldloc, getValueTempObject);
                 il.Emit(OpCodes.Call, GetTypeMethodInfo);
                 il.Emit(OpCodes.Ldloc, dbNullTypeObj);
                 il.Emit(OpCodes.Ceq);
                 il.Emit(OpCodes.Brfalse, ifContent);
+                // 退出 if
                 il.MarkLabel(ifOut);
-                //System.DBNull
-
 
             }
             // 读取对象
             il.Emit(OpCodes.Ldloc, entityIL);
             // 返回
             il.Emit(OpCodes.Ret);
+            /*
+             C# 代码
+             TEntity function (IDataReader reader){
+                    TEntity entity = new TEntity();
+                    object tempValue;
+                    Type dbNullType = typeof(System.DbNull);
+                    
+                    tempValue = reader.GetValue(1);
+                     if(tempValue.GetType() != dbNullType){
+                            
+                            entity.set_xxx((FiledType)tempValue);
+                     }
+                     .....
+                     每一列
+                     .....
+                     // 如果实体是string类型来接收
+                     tempValue = reader.GetValue(1);
+                     if(tempValue.GetType() != dbNullType){
+                            entity.set_xxx(tempValue.ToString());
+                     }
 
+
+
+                   return entity;
+            }
+             
+             */
             Func<IDataReader, TEntity> function = (Func<IDataReader, TEntity>)dymMethod.CreateDelegate(typeof(Func<IDataReader, TEntity>));
             ConvertFunc = function;
             return function;

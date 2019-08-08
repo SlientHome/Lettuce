@@ -11,9 +11,6 @@ namespace Lettuce.ORM
     {
 
 
-
-
-
         public static List<TEntity> QuerySql<TEntity>(this IDbConnection connection,string sql) where TEntity:class
         {
             if(connection.State == ConnectionState.Closed)
