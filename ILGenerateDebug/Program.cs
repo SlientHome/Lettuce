@@ -16,15 +16,11 @@ namespace ILGenerateDebug
 
             var target = ILDebugger.CreateILCodeFunction();
             var il = target.IL;
-            var b = typeof(TestModel1).GetMethod("B");
-            il.DeclareLocal(typeof(string));
 
-            il.Emit(OpCodes.Ldstr, "123456789");
-            il.Emit(OpCodes.Callvirt,b);
+            il.DeclareLocal(typeof(Type));
 
-
+            il.Emit(OpCodes.Ldtoken, typeof(int));
             il.Emit(OpCodes.Stloc, 0);
-
 
             il.Emit(OpCodes.Ret);
             string code = target.GenerateCSharp();

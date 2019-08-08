@@ -22,7 +22,7 @@ namespace ConsoleApp1
                 conn.Open();
                 Stopwatch s1 = new Stopwatch();
                 s1.Start();
-                conn.QuerySql<UserInfo>("select Id,UserName,Password from UserInfo");
+                var a  = conn.QuerySql<UserInfo>("select Id,UserName,Password,CreateTime from UserInfo");
                 s1.Stop();
                 Console.WriteLine(s1.ElapsedMilliseconds);
 

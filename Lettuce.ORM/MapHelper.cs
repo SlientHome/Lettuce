@@ -43,7 +43,6 @@ namespace Lettuce.ORM
 
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    // TODO 严格匹配
                     string fieldName = reader.GetName(i).ToLower();
                     PropertyInfo property = propertyInfos.FirstOrDefault(t=>t.Name.ToLower() == fieldName);
 

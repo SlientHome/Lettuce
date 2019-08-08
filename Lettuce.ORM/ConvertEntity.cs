@@ -14,8 +14,14 @@ namespace Lettuce.ORM
     {
 
 
-        internal static ConcurrentDictionary<string, ConvertEntity<TEntity>> Cache = new ConcurrentDictionary<string, ConvertEntity<TEntity>>();
+        #region Type & MethodInfo
+        internal readonly static Type DbNullType = typeof(DBNull);
+        internal readonly static MethodInfo GetTypeMethodInfo = typeof(object).GetMethod("GetType");
+        #endregion
 
+
+
+        internal static ConcurrentDictionary<string, ConvertEntity<TEntity>> Cache = new ConcurrentDictionary<string, ConvertEntity<TEntity>>();
 
         public readonly static MethodInfo DataReaderGetValueMethodInfo = typeof(IDataRecord).GetMethod("GetValue");
         /// <summary>
@@ -51,17 +57,34 @@ namespace Lettuce.ORM
             // 保存起来
             il.Emit(OpCodes.Stloc, entityIL);
 
+            var getValueTempObject = il.DeclareLocal(typeof(object));
+            var dbNullTypeObj = il.DeclareLocal(typeof(Type));
+            il.Emit(OpCodes.Ldtoken, DbNullType);
+            il.Emit(OpCodes.Stloc, dbNullTypeObj);
             for (int i = 0; i < ExistFieldsList.Count; i++)
             {
+                Label ifContent = il.DefineLabel();
+                Label ifStart = il.DefineLabel();
+                Label ifOut = il.DefineLabel();
                 // 用于接收读出来的数据
                 var getValueFromReader = il.DeclareLocal(ExistFieldsList[i].FieldInDbType);
+
+
                 il.Emit(OpCodes.Ldarg, 0);
                 // 数据位置
                 il.Emit(OpCodes.Ldc_I4, ExistFieldsList[i].Index );
                 // 调用datareader.Getvalue()  返回值到栈顶
                 il.Emit(OpCodes.Callvirt, DataReaderGetValueMethodInfo);
+                il.Emit(OpCodes.Stloc, getValueTempObject);
+                
+
+                il.Emit(OpCodes.Br_S, ifStart);
+                il.MarkLabel(ifContent);
+
+                il.Emit(OpCodes.Ldloc, getValueTempObject);
                 // 把栈顶的值 拆箱成FieldInDbType类型
                 il.Emit(OpCodes.Unbox_Any, ExistFieldsList[i].FieldInDbType);
+                
                 // 保存
                 il.Emit(OpCodes.Stloc, getValueFromReader);
                 // 读取创建的对象
@@ -70,6 +93,19 @@ namespace Lettuce.ORM
                 il.Emit(OpCodes.Ldloc, getValueFromReader);
                 // set 值
                 il.Emit(OpCodes.Callvirt, ExistFieldsList[i].SetMethod);
+                il.Emit(OpCodes.Br_S, ifOut);
+
+
+                il.MarkLabel(ifStart);
+                il.Emit(OpCodes.Ldloc, getValueTempObject);
+                il.Emit(OpCodes.Call, GetTypeMethodInfo);
+                il.Emit(OpCodes.Ldloc, dbNullTypeObj);
+                il.Emit(OpCodes.Ceq);
+                il.Emit(OpCodes.Brfalse, ifContent);
+                il.MarkLabel(ifOut);
+                //System.DBNull
+
+
             }
             // 读取对象
             il.Emit(OpCodes.Ldloc, entityIL);
@@ -80,38 +116,6 @@ namespace Lettuce.ORM
             ConvertFunc = function;
             return function;
         }
-        ///// <summary>
-        ///// 映射对象
-        ///// </summary>
-        ///// <param name="dataReader"></param>
-        ///// <returns></returns>
-        //public TEntity ConvertToEntity(IDataReader dataReader)
-        //{
-        //    TEntity entity = null;
-        //    if (MapFunc == null)
-        //    {
-        //        MapFunc = GenerateEntityMapperFunc();
-        //    }
-        //    int errorCount = 0;
-        //    while (errorCount < ERROR_LIMIT)
-        //    {
-        //        try
-        //        {
-        //            if (errorCount != 0)
-        //            {
-        //                MapFunc = GenerateEntityMapperFunc();
-        //            }
-        //            entity = MapFunc(dataReader);
-        //            break;
-        //        }
-        //        catch(Exception ex)
-        //        {
-        //            errorCount++;
-        //            // TODO
-        //        }
-        //    }
-        //    return entity;
-        //}
         public Func<IDataReader, TEntity> GetConvertFunc()
         {
             if(ConvertFunc == null)
