@@ -10,7 +10,7 @@ namespace Lettuce.ORM
         //internal static ConcurrentDictionary<string, ConvertEntity<TEntity>> Cache = new ConcurrentDictionary<string, ConvertEntity<TEntity>>();
         public int Delete<T>(T entity)
         {
-            TypeInfoCache.GetTypeInfo<T>();
+            DbTypeInfoCache.GetTypeInfo<T>();
 
 
             throw new NotImplementedException();

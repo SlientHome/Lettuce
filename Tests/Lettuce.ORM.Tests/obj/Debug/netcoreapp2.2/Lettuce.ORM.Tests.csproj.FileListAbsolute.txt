@@ -12,3 +12,6 @@ C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\De
 C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.AssemblyInfo.cs
 C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.dll
 C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.pdb
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.dll
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\bin\Debug\netcoreapp2.2\Lettuce.ORM.pdb
+C:\Users\Administrator\Desktop\Clownpiece\Lettuce\Tests\Lettuce.ORM.Tests\obj\Debug\netcoreapp2.2\Lettuce.ORM.Tests.csproj.CopyComplete

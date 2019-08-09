@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lettuce.DependencyInjection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B1A53BA-B718-4F7F-AD8E-8333F2D15AD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lettuce.ORM", "Lettuce.ORM\Lettuce.ORM.csproj", "{6387F8F0-AE33-494F-B820-8035B15FF954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lettuce.ORM", "Lettuce.ORM\Lettuce.ORM.csproj", "{6387F8F0-AE33-494F-B820-8035B15FF954}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lettuce.ORM.Tests", "Tests\Lettuce.ORM.Tests\Lettuce.ORM.Tests.csproj", "{BC0339E2-C948-462E-9109-0B9CBFC2C1D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILGenerateDebug", "ILGenerateDebug\ILGenerateDebug.csproj", "{613252AC-B1DC-4898-84F5-3D04D5A5A4C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ILGenerateDebug", "ILGenerateDebug\ILGenerateDebug.csproj", "{613252AC-B1DC-4898-84F5-3D04D5A5A4C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +46,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{CD0622C2-A05E-4EF6-87F3-8D4A64F9FB0B} = {9B1A53BA-B718-4F7F-AD8E-8333F2D15AD9}
 		{BC0339E2-C948-462E-9109-0B9CBFC2C1D6} = {9B1A53BA-B718-4F7F-AD8E-8333F2D15AD9}
 		{613252AC-B1DC-4898-84F5-3D04D5A5A4C9} = {9B1A53BA-B718-4F7F-AD8E-8333F2D15AD9}
 	EndGlobalSection

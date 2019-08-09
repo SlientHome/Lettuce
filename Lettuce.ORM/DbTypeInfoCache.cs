@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Lettuce.ORM
 {
-    public static class TypeInfoCache
+    public static class DbTypeInfoCache
     {
         private static CacheStore<Type, DbTableInfo> Cache = new CacheStore<Type, DbTableInfo>();
         private static DbTableInfo LoadDbTableInfo(Type type)
@@ -31,7 +31,8 @@ namespace Lettuce.ORM
             {
                 if (property.GetMethod == null || property.SetMethod == null)
                     continue;
-
+                if (!(property.GetMethod.IsPublic && property.SetMethod.IsPublic))
+                    continue;
 
                 DbFieldInfo dbFieldInfo = new DbFieldInfo();
                 dbFieldInfo.Property = property;

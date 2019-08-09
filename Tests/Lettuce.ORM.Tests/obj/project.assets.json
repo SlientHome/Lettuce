@@ -1619,6 +1619,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "Lettuce.ORM/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/Lettuce.ORM.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Lettuce.ORM.dll": {}
+        }
       }
     }
   },
@@ -5827,10 +5837,16 @@
         "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "Lettuce.ORM/1.0.0": {
+      "type": "project",
+      "path": "../../Lettuce.ORM/Lettuce.ORM.csproj",
+      "msbuildProject": "../../Lettuce.ORM/Lettuce.ORM.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
+      "Lettuce.ORM >= 1.0.0",
       "MSTest.TestAdapter >= 1.4.0",
       "MSTest.TestFramework >= 1.4.0",
       "Microsoft.NET.Test.Sdk >= 16.0.1",
@@ -5866,7 +5882,11 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Administrator\\Desktop\\Clownpiece\\Lettuce\\Lettuce.ORM\\Lettuce.ORM.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\Desktop\\Clownpiece\\Lettuce\\Lettuce.ORM\\Lettuce.ORM.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
