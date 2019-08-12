@@ -22,7 +22,7 @@ namespace ConsoleApp1
         private static void Main(string[] args)
         {
 
-            //Summary summary = BenchmarkRunner.Run<SpeedTest>();
+            Summary summary = BenchmarkRunner.Run<SpeedTest>();
             Console.ReadLine();
         }
     }

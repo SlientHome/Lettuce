@@ -7,10 +7,12 @@ namespace Lettuce.ORM
 {
     public class LettuceSqlCommand : ISqlCommand
     {
-        //internal static ConcurrentDictionary<string, ConvertEntity<TEntity>> Cache = new ConcurrentDictionary<string, ConvertEntity<TEntity>>();
         public int Delete<T>(T entity)
         {
-            DbTypeInfoCache.GetTypeInfo<T>();
+            var dbTypeInfo = DbTypeInfoCache.GetTypeInfo<T>();
+
+
+
 
 
             throw new NotImplementedException();

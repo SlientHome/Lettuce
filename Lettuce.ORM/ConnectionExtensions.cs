@@ -13,24 +13,6 @@ namespace Lettuce.ORM
     /// </summary>
     public static class ConnectionExtensions
     {
-
-        
-
-        public static ISqlCommand Command(this IDbConnection connection)
-        {
-            return new LettuceSqlCommand();
-        }
-        public static ISqlCommand Command<TCommandClass>(this IDbConnection connection) where TCommandClass : ISqlCommand,new()
-        {
-            return new TCommandClass();
-        }
-        public static ISqlCommand Command<TCommandClass>(this IDbConnection connection, TCommandClass commandClass) where TCommandClass : ISqlCommand, new()
-        {
-            return commandClass;
-        }
-
-
-
         public static List<TEntity> FindList<TEntity>(this IDbConnection connection, string sql) where TEntity : class
         {
 
@@ -54,7 +36,6 @@ namespace Lettuce.ORM
             }
             return list;
         }
-
         public static TEntity FirstOrDefault<TEntity>(this IDbConnection connection, string sql) where TEntity : class
         {
             if (connection.State == ConnectionState.Closed)
@@ -76,8 +57,5 @@ namespace Lettuce.ORM
             }
             return entity;
         }
-
-
-
     }
 }
