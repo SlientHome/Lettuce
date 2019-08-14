@@ -24,6 +24,11 @@ namespace Lettuce.ORM.Tests.Model
         public string PK { get; set; }
         public string Name { get; set; }
     }
+    public class PrimaryKeyStart
+    {
+        public string PrimaryKeyStartId { get; set; }
+        public string Name { get; set; }
+    }
     public class MultiplePrimaryKeyAttribute
     {
         [PrimaryKey]

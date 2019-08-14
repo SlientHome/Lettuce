@@ -5,16 +5,11 @@ using System.Text;
 
 namespace Lettuce.ORM
 {
-    public class LettuceSqlCommand : ISqlCommand
+    public class LettuceSqlCommand 
     {
         public int Delete<T>(T entity)
         {
             var dbTypeInfo = DbTypeInfoCache.GetTypeInfo<T>();
-
-
-
-
-
             throw new NotImplementedException();
         }
 

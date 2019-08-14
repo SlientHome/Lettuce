@@ -1,4 +1,5 @@
 ﻿using Lettuce.ORM.Config;
+using Lettuce.ORM.Enums;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,7 @@ using System.Text;
 
 namespace Lettuce.ORM
 {
-    public enum DataBaseType
-    {
-        SqlServer,
-        Mysql
-    }
+
     public class DataSource:IDisposable
     {
         private DatasourceConfig _datasourceConfig;
@@ -68,6 +65,7 @@ namespace Lettuce.ORM
 
         #region Command
 
+        
          
 
 

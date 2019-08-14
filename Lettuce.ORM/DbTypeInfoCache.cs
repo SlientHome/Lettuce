@@ -64,6 +64,13 @@ namespace Lettuce.ORM
             {
                 // 尝试寻找 id 列
                 dbTableInfo.PrimaryKeyField = dbTableInfo.FieldPropertyInfos.FirstOrDefault(t => t.FieldInDbName.ToLower() == "id");
+
+                if (dbTableInfo.PrimaryKeyField == null)
+                {
+                    // 尝试寻找 <typename>+id 列
+                    dbTableInfo.PrimaryKeyField = dbTableInfo.FieldPropertyInfos.FirstOrDefault(t => t.FieldInDbName.ToLower() == (type.Name + "id"));
+                }
+
                 // 没有就选择第一个属性
                 if (dbTableInfo.PrimaryKeyField == null)
                 {

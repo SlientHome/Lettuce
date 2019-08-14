@@ -19,6 +19,9 @@ namespace Lettuce.ORM.Tests
             info = DbTypeInfoCache.GetTypeInfo<PrimaryKeyWithoutAttribute>();
             Assert.AreEqual(expected: "Id", actual: info.PrimaryKeyField.Property.Name, message: "没有标记PrimaryKey 优先取名称为ID的");
 
+            info = DbTypeInfoCache.GetTypeInfo<PrimaryKeyStart>();
+            Assert.AreEqual(expected: "PrimaryKeyStartId", actual: info.PrimaryKeyField.Property.Name, message: "没有标记PrimaryKey 名称也没有ID的 查找<typename>+id");
+
             info = DbTypeInfoCache.GetTypeInfo<PrimaryKeyWithoutAttributeNoIdProperty>();
             Assert.AreEqual(expected: "PK", actual: info.PrimaryKeyField.Property.Name, message: "没有标记PrimaryKey 名称也没有ID的 取第一个");
 
